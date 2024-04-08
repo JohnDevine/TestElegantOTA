@@ -109,12 +109,12 @@ void setup(void)
                        Serial.println("OTA update process started.");
                        // Add your initialization tasks here.
                      });
-/* =============== This (below)causes a crash on the ESP8266 ===============
+  /* =============== This (below)causes a crash on the ESP8266 ===============
 
-  ElegantOTA.onProgress([](size_t current, size_t final)
-                        { Serial.printf("Progress: %u%%\n", (current * 100) / final); });
+    ElegantOTA.onProgress([](size_t current, size_t final)
+                          { Serial.printf("Progress: %u%%\n", (current * 100) / final); });
 
-*/
+  */
   ElegantOTA.onEnd([](bool success)
                    {
   if (success) {
@@ -124,10 +124,11 @@ void setup(void)
     Serial.println("OTA update failed.");
     // Add failure handling here.
   } });
-
-  // ==================================== Start the web server ====================================
+  ElegantOTA.setAuth("JohnDevine", "1234567890");
 
   ElegantOTA.begin(&server); // Start ElegantOTA
+  // ==================================== Start the web server ====================================
+
   server.begin();
   Serial.println("HTTP server started");
 }
